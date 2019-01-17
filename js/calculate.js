@@ -14,15 +14,26 @@
             $scope.points.push(i);
         }
 
+        /**
+         * 
+         * @param {*} math simple expressions without paranthesis to be solved 
+         */
         function resolve(math) {
 
             var myArray;
             var isReady = false;
 
+            /**
+             * Removing useless stuff
+             */
             math = math.replace(/\(/g, '');
             math = math.replace(/\)/g, '');
             math = math.replace(/\+\+/g, '+');
 
+            /**
+             * First try * and /
+             * Later try + and -
+             */
             const priority = [
                 /([+-]?)(\d+(\.\d+)?)([/*])([+-]?)(\d+(\.\d+)?)/g,
                 /([+-]?)(\d+(\.\d+)?)([+-])([+-]?)(\d+(\.\d+)?)/g
@@ -77,15 +88,27 @@
             return math;
         }
 
+        /**
+         * @param {*} the math formula as string 
+         */
         function calculate(math) {
 
             var myArray;
 
+            // remove white spaces
             math = math.replace(/\s/g, '');
             math = math.replace(/\s/g, '');
 
             do {
-
+                /**
+                 * Find deep expressions between parenthesis
+                 * These expression are solved and then replaced
+                 * on the formula
+                 * For instance:
+                 * Loop 1: ( 1 + ( 2 + 3 ) )
+                 * Loop 2: ( 1 + 5 )
+                 * Loop 3: ( 6 )
+                 */
                 while ((myArray = has_parenthesis.exec(math)) !== null) {
                     const expression = myArray[0];
                     const result = resolve(expression);
