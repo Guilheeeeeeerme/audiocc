@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Parte 3</title>
+</head>
+<body ng-app="tasks.module">
+
+    <div ng-controller="CalculateController" >
+        <h1>Parte 1 - Calculator</h1>
+        <input type="text" ng-model="dados.math" ng-change="dados.math_result = +calculate(dados.math)">
+        <pre ng-show="dados.math_result != null">{{ dados.math_result }}</pre>
+    </div>
+
+    <div ng-controller="PeterController" >
+        <h1>Parte 2 - Peter</h1>
+        <input type="text" ng-model="dados.peter" ng-change="dados.peter_result = +peter(dados.peter)">
+        <pre ng-show="dados.peter_result != null">{{ dados.peter_result }}</pre>
+    </div>
+
+    <div ng-controller="CalculateController">
+        <h1>Parte 3 - Line</h1>
+        <input type="text" ng-model="dados.line">
+        <br/>
+
+        <svg width="500" height="500">
+            <g transform="translate(250, 250)scale(1,-1)">
+                <circle ng-repeat="point in points" ng-attr-cx="{{ point }}" ng-attr-cy="{{ do_line(dados.line, point) }}" r="2" />            
+            </g>
+        </svg>
+
+    </div>
+
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+
+    <script>
+        angular.module('tasks.module', []);
+    </script>
+
+
+    <script src="./js/calculate.js"></script>
+    <script src="./js/peter.js"></script>
+
+</body>
+</html>
